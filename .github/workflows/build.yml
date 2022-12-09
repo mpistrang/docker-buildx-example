@@ -26,6 +26,7 @@ jobs:
         if: ${{ success() }}
         run: |
           echo "This should have failed, why does exclude_me/do_not_want.txt exist on the container?"
+          exit 1
       - name: Failed as expected
         if: ${{ failure() }}
         run: |
