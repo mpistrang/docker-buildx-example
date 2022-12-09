@@ -37,6 +37,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     timeout-minutes: 3
     steps:
+      - uses: actions/checkout@v3
       - name: Docker build
         run: |
           docker build --tag my_image:latest .
