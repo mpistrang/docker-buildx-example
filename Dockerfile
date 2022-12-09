@@ -5,6 +5,6 @@ WORKDIR /
 COPY ./ ./
 
 RUN ls -la 
-RUN echo .dockerignore
+RUN cat .dockerignore
 
 CMD ["bash", "app.sh"]
