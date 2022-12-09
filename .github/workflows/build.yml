@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: 'Build!'
+  docker_buildx:
+    name: 'Docker Buildx!'
     runs-on: 'ubuntu-latest'
     timeout-minutes: 3
     steps:
@@ -31,3 +31,24 @@ jobs:
         if: ${{ failure() }}
         run: |
           echo "This failed as expected"
+
+  docker_build:
+    name: 'Docker Build!'
+    runs-on: 'ubuntu-latest'
+    timeout-minutes: 3
+    steps:
+      - name: Docker build
+        run: |
+          docker build --tag my_image:latest .
+      - name: Test
+        run: |
+          docker run --rm my_image:latest ls -la exclude_me/do_not_want.txt
+      - name: Failed unexpectedly
+        if: ${{ success() }}
+        run: |
+          echo "This should have failed, why does exclude_me/do_not_want.txt exist on the container?"
+          exit 1
+      - name: Failed as expected
+        if: ${{ failure() }}
+        run: |
+          echo "This failed as expected"          
