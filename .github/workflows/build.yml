@@ -21,4 +21,4 @@ jobs:
             my_image:latest
       - name: Test
         run: |
-          docker run --rm my_image:latest ls -la exclude_me/do_not_want
+          docker run --rm my_image:latest ls -la exclude_me/do_not_want.txt
